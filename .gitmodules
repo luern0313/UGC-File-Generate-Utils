@@ -1,0 +1,3 @@
+[submodule "proto"]
+	path = proto
+	url = https://github.com/luern0313/UGC-Gia-Gil-ProtoBuf.git
