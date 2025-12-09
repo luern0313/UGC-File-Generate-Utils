@@ -8,7 +8,6 @@ __pycache__/
 *.gia
 *.gil
 *.json
-*.png
 
 # IDE
 .vscode/
