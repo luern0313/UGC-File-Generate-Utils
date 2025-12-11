@@ -27,7 +27,7 @@ UGC File Generate Utils 是一套用于处理游戏实体数据的Python工具�
 ## 🗃️ 提交代码 & 交流群
 
 欢迎通过Pull requests提交你的代码！  
-欢迎加入原神/千星奇域/米游QQ群 1043830337
+欢迎加入原神/千星奇域/米游QQ群: 1043830337
 
 
 ## ✨ 功能特性
@@ -97,7 +97,7 @@ git submodule update --remote proto
 
 # 或手动进入proto目录更新
 cd proto
-git pull origin main
+git pull origin master
 cd ..
 ```
 
@@ -261,7 +261,6 @@ FileHelper.save(proto_data, "output/grid_10x10.gia")
 # 需要将proto_gen文件夹加入module搜索路径中
 import sys
 import os
-
 sys.path.append(os.path.join(os.path.dirname(__file__), "proto_gen"))
 
 import random
@@ -312,7 +311,7 @@ FileHelper.save(proto_data, f"output/random_trees.gia")
 <img src="docs/random_trees.png" width="640px" alt="">
 
 
-## 📜 开源协议 & 提交代码
+## 📜 开源协议
 
 本项目采用 Apache License 2.0 协议开源  
 详见 [LICENSE](LICENSE) 文件
