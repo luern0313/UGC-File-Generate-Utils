@@ -168,6 +168,24 @@ class BlockHelper:
             raise ValueError("方块模板列表为空")
 
         target_rgb = BlockHelper.hex_to_rgb(target_color)
+        return BlockHelper.find_closest_template_rgb(target_rgb, templates)
+
+    @staticmethod
+    def find_closest_template_rgb(target_rgb: Tuple[int, int, int],
+                              templates: List[BlockTemplate]) -> BlockTemplate:
+        """
+        找到颜色最接近的模板模板
+
+        Args:
+            target_rgb: 目标颜色
+            templates: 可用模板列表
+
+        Returns:
+            BlockTemplate: 最接近的模板
+        """
+        if not templates:
+            raise ValueError("方块模板列表为空")
+
         target_hsv = BlockHelper.rgb_to_hsv(target_rgb)
 
         closest_template = None

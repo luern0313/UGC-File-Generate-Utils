@@ -37,13 +37,13 @@ class BlockConfig:
         # 木质箱子（绿）
         BlockTemplate(
             template_id=20001237,
-            color_tuple=(154, 180, 137),
+            color_tuple=(164, 175, 134),
             size_units=1.5
         ),
         # 木质箱子（蓝）
         BlockTemplate(
             template_id=20001238,
-            color_tuple=(151, 178, 181),
+            color_tuple=(159, 178, 182),
             size_units=1.5
         ),
         # 木质箱子（紫）
@@ -69,7 +69,7 @@ class BlockConfig:
         # 石质墙体（灰）
         BlockTemplate(
             template_id=20001872,
-            color_tuple=(201, 210, 204),
+            color_tuple=(189, 199, 212),
             size_units=3.0,
             default_scale_tuple=(1.0, 1.3, 1.0)
         ),
@@ -82,7 +82,7 @@ class BlockConfig:
         # 通常立方体（奶黄）
         BlockTemplate(
             template_id=20001875,
-            color_tuple=(229, 211, 153),
+            color_tuple=(225, 208, 161),
             size_units=1.0
         ),
         # 坚固立方体（暗蓝）
@@ -137,14 +137,14 @@ class BlockConfig:
         # 石质天花板（白）
         BlockTemplate(
             template_id=20002146,
-            color_tuple=(210, 220, 232),
+            color_tuple=(194, 189, 183),
             size_units=5.0,
             default_scale_tuple=(1.0, 41.7, 1.0)
         ),
         # 木质天花板（黑）
         BlockTemplate(
             template_id=20002121,
-            color_tuple=(48, 55, 75),
+            color_tuple=(85, 102, 128),
             size_units=5.0,
             default_scale_tuple=(1.0, 41.7, 1.0)
         ),

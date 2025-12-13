@@ -37,6 +37,7 @@ UGC File Generate Utils 是一套用于处理游戏实体数据的Python工具�
 | 脚本                               | 说明                       |
 |----------------------------------|--------------------------|
 | `generate_qrcode.py`             | 输入文字，生成二维码方块墙（为防止滥用已删除）  |
+| `generate_image.py`              | 将图片转换为方块组成的像素画           |
 | `parser/parser_with_proto.py`    | 使用已知的Proto结构，解析指定的存档文件   |
 | `parser/parser_with_raw_data.py` | 使用decode_raw方式，解析指定的存档文件 |
 
@@ -135,9 +136,10 @@ python generate_qrcode.py
 - `output/qrcode_entities.gia` - 游戏实体文件
 - `output/qrcode_preview.png` - 二维码预览图
 
-**配置选项：**
+<details>
+<summary>配置选项</summary>
 
-编辑 `generate_qrcode.py` 中的 `Config` 类：
+##### 编辑 `generate_qrcode.py` 中的 `Config` 类：
 
 ```python
 class Config:
@@ -171,9 +173,65 @@ class Config:
     # 起始实体ID
     ENTITY_ID_START = 1078000000
 ```
+</details>
 
 
-### 3. 检查和分析存档文件
+<img src="docs/qrcode.png" width="480px" alt="">
+
+
+### 3. 图片转像素画
+
+将任意图片转换为游戏中的像素画：
+
+```bash
+python generate_image.py
+```
+
+**输出：**
+- `output/image_pixelart.gia` - 游戏实体文件
+- `output/image_preview_resized.png` - 缩放后的预览图
+
+<details>
+<summary>配置选项</summary>
+
+##### 编辑 `generate_image.py` 中的 `Config` 类：
+
+```python
+class Config:
+    OUTPUT_WIDTH = 240  # 输出宽度
+    OUTPUT_HEIGHT = 240  # 输出高度
+
+    # 全局缩放
+    GLOBAL_SCALE = 0.1
+
+    # 忽略透明像素阈值
+    ALPHA_THRESHOLD = 128
+
+    AXIS_MAPPING = {
+        'horizontal': 'x',  # 图片水平方向对应的轴
+        'vertical': 'y',  # 图片垂直方向对应的轴
+        'depth': 'z'  # 图片深度方向对应的轴
+    }
+
+    # 起始位置（左下角第一个方块的坐标）
+    START_POSITION = {
+        'x': 0.0,
+        'y': 0.0,
+        'z': 0.0
+    }
+
+    KEEP_ASPECT_RATIO = True  # 保持图片宽高比
+    RESIZE_METHOD = Image.LANCZOS  # 缩放算法
+
+    # 起始实体ID
+    ENTITY_ID_START = 1078000000
+```
+</details>
+
+<img src="docs/image.png" width="640px" alt="">
+
+
+### 4. 检查和分析存档文件
 
 使用已知的Proto结构文件解析：
 
@@ -253,7 +311,7 @@ proto_data = assembler.assemble(blocks)
 FileHelper.save(proto_data, "output/grid_10x10.gia")
 ```
 
-<img src="docs/grid.png" width="640px" alt="">
+<img src="docs/grid.png" width="560px" alt="">
 
 ### 示例二: 使用简单随机算法，在区域内随机放置树木
 
