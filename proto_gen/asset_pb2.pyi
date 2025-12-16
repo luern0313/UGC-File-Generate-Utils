@@ -1,4 +1,5 @@
 import entity_pb2 as _entity_pb2
+import camera_pb2 as _camera_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
@@ -9,7 +10,7 @@ from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class Asset(_message.Message):
-    __slots__ = ()
+    __slots__ = ("meta", "dependent_assets", "name", "type", "entity_data", "camera_config")
     class AssetType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = ()
         UNKNOWN: _ClassVar[Asset.AssetType]
@@ -37,15 +38,17 @@ class Asset(_message.Message):
     NAME_FIELD_NUMBER: _ClassVar[int]
     TYPE_FIELD_NUMBER: _ClassVar[int]
     ENTITY_DATA_FIELD_NUMBER: _ClassVar[int]
+    CAMERA_CONFIG_FIELD_NUMBER: _ClassVar[int]
     meta: AssetMeta
     dependent_assets: _containers.RepeatedCompositeFieldContainer[AssetMeta]
     name: str
     type: Asset.AssetType
     entity_data: _entity_pb2.Entity
-    def __init__(self, meta: _Optional[_Union[AssetMeta, _Mapping]] = ..., dependent_assets: _Optional[_Iterable[_Union[AssetMeta, _Mapping]]] = ..., name: _Optional[str] = ..., type: _Optional[_Union[Asset.AssetType, str]] = ..., entity_data: _Optional[_Union[_entity_pb2.Entity, _Mapping]] = ...) -> None: ...
+    camera_config: _camera_pb2.CameraConfig
+    def __init__(self, meta: _Optional[_Union[AssetMeta, _Mapping]] = ..., dependent_assets: _Optional[_Iterable[_Union[AssetMeta, _Mapping]]] = ..., name: _Optional[str] = ..., type: _Optional[_Union[Asset.AssetType, str]] = ..., entity_data: _Optional[_Union[_entity_pb2.Entity, _Mapping]] = ..., camera_config: _Optional[_Union[_camera_pb2.CameraConfig, _Mapping]] = ...) -> None: ...
 
 class AssetMeta(_message.Message):
-    __slots__ = ()
+    __slots__ = ("field_2", "meta_type", "asset_id")
     class AssetMetaType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = ()
         CAMERA: _ClassVar[AssetMeta.AssetMetaType]

@@ -8,6 +8,8 @@
 import sys
 import os
 
+# 添加项目根目录到Python路径
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(os.path.join(os.path.dirname(__file__), "../proto_gen"))
 
 import tkinter as tk
@@ -63,8 +65,14 @@ def main():
     print("=" * 70)
     print()
 
-    # 选择文件
-    file_path = select_file()
+    # 检查命令行参数
+    file_path = None
+    if len(sys.argv) > 1:
+        file_path = sys.argv[1]
+        print(f"使用命令行参数指定的文件: {file_path}")
+    else:
+        # 选择文件
+        file_path = select_file()
 
     if not file_path:
         print("未选择文件，程序退出。")
