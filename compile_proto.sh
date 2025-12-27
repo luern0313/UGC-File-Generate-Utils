@@ -19,6 +19,7 @@ rm -rf proto_gen/*
 echo "正在重新编译protobuf文件..."
 
 protoc --python_out=proto_gen/ --proto_path=proto/ --pyi_out=proto_gen/ proto/entity.proto
+protoc --python_out=proto_gen/ --proto_path=proto/ --pyi_out=proto_gen/ proto/camera.proto
 protoc --python_out=proto_gen/ --proto_path=proto/ --pyi_out=proto_gen/ proto/asset.proto
 protoc --python_out=proto_gen/ --proto_path=proto/ --pyi_out=proto_gen/ proto/gia.proto
 

@@ -10,7 +10,7 @@ from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class Asset(_message.Message):
-    __slots__ = ("meta", "dependent_assets", "name", "type", "entity_data", "camera_config")
+    __slots__ = ()
     class AssetType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = ()
         UNKNOWN: _ClassVar[Asset.AssetType]
@@ -48,7 +48,7 @@ class Asset(_message.Message):
     def __init__(self, meta: _Optional[_Union[AssetMeta, _Mapping]] = ..., dependent_assets: _Optional[_Iterable[_Union[AssetMeta, _Mapping]]] = ..., name: _Optional[str] = ..., type: _Optional[_Union[Asset.AssetType, str]] = ..., entity_data: _Optional[_Union[_entity_pb2.Entity, _Mapping]] = ..., camera_config: _Optional[_Union[_camera_pb2.CameraConfig, _Mapping]] = ...) -> None: ...
 
 class AssetMeta(_message.Message):
-    __slots__ = ("field_2", "meta_type", "asset_id")
+    __slots__ = ()
     class AssetMetaType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = ()
         CAMERA: _ClassVar[AssetMeta.AssetMetaType]
