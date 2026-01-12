@@ -8,9 +8,9 @@ Protobuf Raw Decoder
 import tkinter as tk
 from tkinter import filedialog
 import os
-# import sys
-# # 添加项目根目录到Python路径
-# sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+import sys
+# 添加项目根目录到Python路径
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from google.protobuf.internal import decoder, wire_format
 
 from helper.file_helper import FileHelper
