@@ -8,6 +8,7 @@
 
 import sys
 import os
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "proto_gen"))
 
 import tkinter as tk
@@ -19,6 +20,76 @@ from assembler.block_assembler import BlockAssembler
 from helper.file_helper import FileHelper
 from config.block_config import BlockTemplate, BlockConfig
 from helper.block_helper import BlockHelper
+
+
+def ask_input(prompt: str, default, type_func=str):
+    """询问用户输入，提供默认值"""
+    if default is not None:
+        display_default = default if not isinstance(default, bool) else ('是' if default else '否')
+        user_input = input(f"{prompt} [{display_default}]: ").strip()
+    else:
+        user_input = input(f"{prompt}: ").strip()
+
+    if not user_input:
+        return default
+    try:
+        return type_func(user_input)
+    except ValueError:
+        return default
+
+
+def interactive_config():
+    """交互式配置"""
+    print("=" * 70)
+    print("像素画生成器 - 配置向导")
+    print("如直接回车则保持默认值")
+    print("=" * 70)
+    print()
+
+    print("--- 基础设置 ---")
+    output_width = ask_input("输出宽度 (像素)", 240, int)
+    output_height = ask_input("输出高度 (像素)", 240, int)
+    keep_aspect = ask_input("保持宽高比 (是/否)", True, lambda x: x.lower() in ('y', 'yes', '是', '1', ''))
+    global_scale = ask_input("全局缩放", 0.1, float)
+    print()
+
+    print("--- 起始位置 ---")
+    start_x = ask_input("起始 X 坐标", 0.0, float)
+    start_y = ask_input("起始 Y 坐标", 0.0, float)
+    start_z = ask_input("起始 Z 坐标", 0.0, float)
+    print()
+
+    print("--- 坐标映射 (轴对应关系) ---")
+    print("  1: X轴=水平, Y轴=垂直, Z轴=深度 (默认)")
+    print("  2: X轴=水平, Z轴=垂直, Y轴=深度")
+    print("  3: Y轴=水平, X轴=垂直, Z轴=深度")
+    axis_choice = ask_input("选择坐标映射", '1')
+    axis_mapping_options = {
+        '1': {'horizontal': 'x', 'vertical': 'y', 'depth': 'z'},
+        '2': {'horizontal': 'x', 'vertical': 'z', 'depth': 'y'},
+        '3': {'horizontal': 'y', 'vertical': 'x', 'depth': 'z'},
+    }
+    axis_mapping = axis_mapping_options.get(str(axis_choice), axis_mapping_options['1'])
+    print()
+
+    print("--- 高级设置 ---")
+    alpha_threshold = ask_input("透明像素阈值 (0-255)", 128, int)
+    entity_id_start = ask_input("起始实体ID", 1078000000, int)
+    print()
+
+    print("--- 配置完成 ---")
+    print()
+
+    return {
+        'OUTPUT_WIDTH': output_width,
+        'OUTPUT_HEIGHT': output_height,
+        'KEEP_ASPECT_RATIO': keep_aspect,
+        'GLOBAL_SCALE': global_scale,
+        'START_POSITION': {'x': start_x, 'y': start_y, 'z': start_z},
+        'AXIS_MAPPING': axis_mapping,
+        'ALPHA_THRESHOLD': alpha_threshold,
+        'ENTITY_ID_START': entity_id_start,
+    }
 
 
 class Config:
@@ -248,7 +319,22 @@ class ImageBlockConverter:
         return blocks
 
 
+def apply_config(config_dict: dict):
+    """将配置字典应用到Config类"""
+    Config.OUTPUT_WIDTH = config_dict['OUTPUT_WIDTH']
+    Config.OUTPUT_HEIGHT = config_dict['OUTPUT_HEIGHT']
+    Config.KEEP_ASPECT_RATIO = config_dict['KEEP_ASPECT_RATIO']
+    Config.GLOBAL_SCALE = config_dict['GLOBAL_SCALE']
+    Config.START_POSITION = config_dict['START_POSITION']
+    Config.AXIS_MAPPING = config_dict['AXIS_MAPPING']
+    Config.ALPHA_THRESHOLD = config_dict['ALPHA_THRESHOLD']
+    Config.ENTITY_ID_START = config_dict['ENTITY_ID_START']
+
+
 def main():
+    user_config = interactive_config()
+    apply_config(user_config)
+
     print("当前配置:")
     print(f"  输出分辨率: {Config.OUTPUT_WIDTH}x{Config.OUTPUT_HEIGHT}")
     print(f"  保持宽高比: {'是' if Config.KEEP_ASPECT_RATIO else '否'}")
